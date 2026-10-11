@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title th:text="${pageTitle}">Employee</title>
+<style>body{font-family:Arial;background:#f4f6fb;color:#172033;padding:36px}.card{max-width:600px;margin:auto;background:white;padding:28px;border-radius:16px}label{display:block;margin:16px 0 6px}input{box-sizing:border-box;width:100%;padding:11px;border:1px solid #ccd2df;border-radius:8px}button,.back{display:inline-block;margin-top:22px;padding:11px 16px;border:0;border-radius:8px;background:#3157d5;color:white;text-decoration:none;cursor:pointer}.error{color:#b42318;font-size:13px}</style></head>
+<body><div class="card"><h1 th:text="${pageTitle}">Employee</h1>
+<form th:action="@{/employees/save}" th:object="${employee}" method="post">
+<input type="hidden" th:field="*{id}">
+<label for="name">Full name</label><input id="name" th:field="*{name}" required><div class="error" th:errors="*{name}"></div>
+<label for="email">Email</label><input id="email" type="email" th:field="*{email}" required><div class="error" th:errors="*{email}"></div>
+<label for="department">Department</label><input id="department" th:field="*{department}" required><div class="error" th:errors="*{department}"></div>
+<label for="jobTitle">Job title</label><input id="jobTitle" th:field="*{jobTitle}">
+<button type="submit">Save employee</button> <a class="back" href="/">Cancel</a>
+</form></div></body></html>

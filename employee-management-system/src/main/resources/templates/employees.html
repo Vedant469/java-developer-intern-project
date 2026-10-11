@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Employee Management</title>
+  <style>
+    body{font-family:Arial,sans-serif;background:#f4f6fb;color:#172033;margin:0;padding:36px}
+    main{max-width:1050px;margin:auto;background:white;padding:28px;border-radius:16px;box-shadow:0 8px 30px #15204412}
+    header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    h1{margin:0 0 8px} .muted{color:#68738a} .btn{background:#3157d5;color:white;padding:10px 14px;border:0;border-radius:8px;text-decoration:none;cursor:pointer}
+    table{width:100%;border-collapse:collapse;margin-top:24px}th,td{text-align:left;padding:13px;border-bottom:1px solid #e8ebf2}
+    th{color:#68738a;font-size:13px;text-transform:uppercase} .actions{display:flex;gap:8px;align-items:center}
+    .edit{color:#3157d5;text-decoration:none}.delete{background:#b42318;color:white;border:0;padding:7px 10px;border-radius:6px;cursor:pointer}
+    .notice{background:#e7f8ed;padding:12px;border-radius:8px;margin-top:18px} .empty{text-align:center;padding:36px;color:#68738a}
+  </style>
+</head>
+<body><main>
+  <header><div><h1>Employee Directory</h1><div class="muted">Manage employee records in one place</div></div><a class="btn" href="/employees/new">+ Add employee</a></header>
+  <p class="notice" th:if="${message}" th:text="${message}"></p>
+  <table th:if="${!employees.isEmpty()}"><thead><tr><th>Name</th><th>Email</th><th>Department</th><th>Job title</th><th>Actions</th></tr></thead>
+    <tbody><tr th:each="employee : ${employees}">
+      <td th:text="${employee.name}"></td><td th:text="${employee.email}"></td><td th:text="${employee.department}"></td><td th:text="${employee.jobTitle}"></td>
+      <td><div class="actions"><a class="edit" th:href="@{/employees/edit/{id}(id=${employee.id})}">Edit</a>
+      <form th:action="@{/employees/delete/{id}(id=${employee.id})}" method="post" onsubmit="return confirm('Delete this employee?')"><button class="delete">Delete</button></form></div></td>
+    </tr></tbody>
+  </table>
+  <div class="empty" th:if="${employees.isEmpty()}">No employees yet. Select “Add employee” to create the first record.</div>
+</main></body></html>
